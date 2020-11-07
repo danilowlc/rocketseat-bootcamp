@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   FlatList,
@@ -21,12 +21,12 @@ export default function App() {
   }, []);
 
   async function handleAddProject() {
-      const response = await api.post('projects', {
-          title: `New Project ${Date.now()}`,
-          owner: 'Danilo Mobile'
-      })
-      const project = response.data
-      setProjects([...projects, project]);
+    const response = await api.post('projects', {
+      title: `New Project ${Date.now()}`,
+      owner: 'Danilo Mobile'
+    });
+    const project = response.data;
+    setProjects([...projects, project]);
   }
 
   return (
@@ -40,7 +40,7 @@ export default function App() {
           style={styles.list}
           data={projects}
           keyExtractor={(project) => project.id}
-          renderItem={({item: project}) => (
+          renderItem={({ item: project }) => (
             <Text style={styles.project}>{project.title}</Text>
           )}
         />
