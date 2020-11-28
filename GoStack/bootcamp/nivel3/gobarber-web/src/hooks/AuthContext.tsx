@@ -37,7 +37,6 @@ export const AuthProvider: React.FC = ({ children }) => {
       password,
     });
 
-    console.log(response.data);
     const { token, userWithoutPassword } = response.data;
     localStorage.setItem('@GoBarber:token', token);
     localStorage.setItem(
