@@ -23,7 +23,7 @@ export const AuthProvider: React.FC = ({ children }) => {
   const [data, setData] = useState<AuthState>(() => {
     const token = localStorage.getItem('@GoBarber:token');
     const userWithoutPassword = localStorage.getItem(
-      '@GoBarber:userWithoutPassword ',
+      '@GoBarber:userWithoutPassword',
     );
     if (token && userWithoutPassword) {
       return { token, userWithoutPassword: JSON.parse(userWithoutPassword) };
