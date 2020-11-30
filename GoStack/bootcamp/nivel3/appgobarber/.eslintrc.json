@@ -54,7 +54,8 @@
         "ts": "never",
         "tsx": "never"
       }
-    ]
+    ],
+    "react-native/no-inline-styles": "off"
   },
   "settings": {
     "import/resolver": {
