@@ -15,6 +15,7 @@ import Icon from 'react-native-vector-icons/Feather';
 import {useNavigation} from '@react-navigation/native';
 import {Form} from '@unform/mobile';
 import {FormHandles} from '@unform/core';
+import {useAuth} from '../../hooks/AuthContext';
 import getValidationErrors from '../../utils/getValidationErrors';
 
 import Input from '../../components/Input';
@@ -40,38 +41,42 @@ const SignIn: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
   const passwordInputRef = useRef<TextInput>(null);
   const navigation = useNavigation();
+  const {signIn} = useAuth();
 
-  const handleSignIn = useCallback(async (data: SignInFormData) => {
-    try {
-      formRef.current?.setErrors({});
-      const WARNREQUIRED = 'Campo Obrigatório';
-      const schema = Yup.object().shape({
-        email: Yup.string()
-          .required(WARNREQUIRED)
-          .email('Digite um e-mail válido'),
-        password: Yup.string().required(WARNREQUIRED),
-      });
-      await schema.validate(data, {
-        abortEarly: false,
-      });
+  const handleSignIn = useCallback(
+    async (data: SignInFormData) => {
+      try {
+        formRef.current?.setErrors({});
+        const WARNREQUIRED = 'Campo Obrigatório';
+        const schema = Yup.object().shape({
+          email: Yup.string()
+            .required(WARNREQUIRED)
+            .email('Digite um e-mail válido'),
+          password: Yup.string().required(WARNREQUIRED),
+        });
+        await schema.validate(data, {
+          abortEarly: false,
+        });
 
-      // await signIn({
-      //   email: data.email,
-      //   password: data.password,
-      // });
-    } catch (error) {
-      if (error instanceof Yup.ValidationError) {
-        const errors = getValidationErrors(error);
-        formRef.current?.setErrors(errors);
-        return;
+        await signIn({
+          email: data.email,
+          password: data.password,
+        });
+      } catch (error) {
+        if (error instanceof Yup.ValidationError) {
+          const errors = getValidationErrors(error);
+          formRef.current?.setErrors(errors);
+          return;
+        }
+
+        Alert.alert(
+          'Erro na autenticação',
+          'Ocorreu um errro ao fazer login, verique as credenciais!',
+        );
       }
-
-      Alert.alert(
-        'Erro na autenticação',
-        'Ocorreu um errro ao fazer login, verique as credenciais!',
-      );
-    }
-  }, []);
+    },
+    [signIn],
+  );
 
   return (
     <>
