@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, {
   useEffect,
   useRef,
@@ -7,10 +6,10 @@ import React, {
   useState,
   useCallback,
 } from 'react';
-import {TextInputProps} from 'react-native';
-import {useField} from '@unform/core';
+import { TextInputProps } from 'react-native';
+import { useField } from '@unform/core';
 
-import {Container, TextInput, Icon} from './styles';
+import { Container, TextInput, Icon } from './styles';
 
 interface InputProps extends TextInputProps {
   name: string;
@@ -26,12 +25,12 @@ interface InputRef {
 }
 
 const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
-  {name, icon, ...rest},
+  { name, icon, ...rest },
   ref,
 ) => {
   const inputElementRef = useRef<any>(null);
-  const {registerField, defaultValue = '', fieldName, error} = useField(name);
-  const inputValueRef = useRef<InputValueReference>({value: defaultValue});
+  const { registerField, defaultValue = '', fieldName, error } = useField(name);
+  const inputValueRef = useRef<InputValueReference>({ value: defaultValue });
 
   const [isFocused, setIsFocused] = useState(false);
   const [isFilled, setIsFilled] = useState(false);
@@ -56,9 +55,10 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
       name: fieldName,
       ref: inputValueRef.current,
       path: 'value',
+      // eslint-disable-next-line no-shadow
       setValue(ref: any, value) {
         inputValueRef.current.value = value;
-        inputElementRef.current.setNativeProps({text: value});
+        inputElementRef.current.setNativeProps({ text: value });
       },
       clearValue() {
         inputValueRef.current.value = '';
