@@ -10,6 +10,7 @@ const routes = Router();
 
 routes.use('/appointments', appointmentsRouter);
 routes.use('/providers', providersRouter);
+
 routes.use('/users', usersRouter);
 routes.use('/sessions', sessionRouter);
 routes.use('/password', passwordRouter);
