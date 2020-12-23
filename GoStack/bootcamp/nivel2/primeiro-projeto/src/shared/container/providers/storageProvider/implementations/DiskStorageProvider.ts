@@ -2,7 +2,6 @@ import fs from 'fs';
 import path from 'path';
 import uploadConfig from '@config/upload';
 import IStorageProvider from "../models/IStorageProvider";
-import { fi, fil, tr } from 'date-fns/locale';
 
 class DiskStorageProvider implements IStorageProvider {
   public async saveFile(file: string): Promise<string> {

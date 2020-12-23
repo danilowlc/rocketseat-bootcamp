@@ -22,6 +22,9 @@ export default class UsersController {
       updated_at: user.updated_at,
     };
 
+    console.log(user);
+    console.log(userWithoutPassword);
+
     return response.json(userWithoutPassword);
   }
 }
